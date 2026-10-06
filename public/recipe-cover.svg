@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f8f5ee"/>
+      <stop offset="1" stop-color="#e5e9dc"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1200" rx="24" fill="url(#bg)"/>
+  <circle cx="675" cy="250" r="185" fill="#d9e0cc"/>
+  <circle cx="710" cy="265" r="116" fill="#ffffff" opacity=".88"/>
+  <circle cx="710" cy="265" r="72" fill="#c97b49" opacity=".78"/>
+  <circle cx="677" cy="232" r="21" fill="#65754b"/>
+  <circle cx="735" cy="285" r="17" fill="#65754b"/>
+  <path d="M145 870c100-140 250-210 445-210 65 0 132 12 201 37v503H0V980c45-23 93-60 145-110Z" fill="#455335"/>
+  <text x="92" y="154" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#65754b" letter-spacing="5">120 RECEITAS</text>
+  <text x="88" y="410" font-family="Georgia, serif" font-size="86" font-weight="700" fill="#20251f">Receitas</text>
+  <text x="88" y="495" font-family="Georgia, serif" font-size="78" font-style="italic" font-weight="700" fill="#65754b">sem cara</text>
+  <text x="88" y="580" font-family="Georgia, serif" font-size="86" font-weight="700" fill="#20251f">de dieta</text>
+  <text x="92" y="645" font-family="Arial, sans-serif" font-size="24" fill="#667064">SEM AÇÚCAR ADICIONADO • SEM GLÚTEN • SEM LACTOSE</text>
+  <text x="90" y="1035" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">CAFÉ DA MANHÃ • LANCHES • ALMOÇOS</text>
+  <text x="90" y="1080" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">BOLOS • DOCES • RECEITAS RÁPIDAS</text>
+</svg>
