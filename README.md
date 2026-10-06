@@ -1,24 +1,70 @@
-# Oi Helper
+# Receitas Sem Cara de Dieta — Página de Vendas
 
-oi
+Página de vendas mobile-first para o produto digital **Receitas Sem Cara de Dieta**.
 
-This project was built with [Lovable](https://lovable.dev).
+## Produto
 
-## Build with Lovable
+- 120 receitas sem açúcar adicionado, sem glúten e sem lactose.
+- 6 categorias com 20 receitas cada.
+- Plano Essencial: R$9,90.
+- Plano Completo: R$19,90 com 6 bônus exclusivos.
+- Pagamento único.
+- Garantia de 7 dias.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/b4064317-09f3-4bb4-880b-9facd6006d99).
+## Desenvolvimento
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+Este projeto usa a estrutura criada pelo Lovable com TanStack Start + React + TypeScript.
 
-## Development
+Para rodar localmente:
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+~~~bash
+bun install
+bun run dev
+~~~
 
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Build de produção:
+
+~~~bash
+bun run build
+~~~
+
+## Links de checkout
+
+Antes de publicar, abra:
+
+`src/routes/index.tsx`
+
+e substitua:
+
+~~~ts
+const CHECKOUT_ESSENCIAL = "#configurar-checkout-essencial";
+const CHECKOUT_COMPLETO = "#configurar-checkout-completo";
+~~~
+
+pelos links reais de checkout.
+
+- `CHECKOUT_ESSENCIAL` → checkout do plano de R$9,90.
+- `CHECKOUT_COMPLETO` → checkout do plano de R$19,90.
+
+Todos os CTAs da página já apontam para uma dessas duas variáveis.
+
+## Prova social
+
+A página **não inventa depoimentos**. A seção está preparada com placeholders para você trocar por avaliações reais depois.
+
+## Imagens e mockups
+
+- A capa visual do produto está em `public/recipe-cover.svg`.
+- As fotos de receitas são carregadas de imagens externas do Unsplash.
+- Você pode substituir os mockups e fotos depois pelas imagens definitivas do produto.
+
+## Arquivos principais
+
+- `src/routes/index.tsx` — página de vendas completa.
+- `src/styles.css` — visual, responsividade e versão mobile.
+- `src/routes/__root.tsx` — metadados, idioma e estrutura raiz.
+- `public/recipe-cover.svg` — capa/mockup do produto.
+
+## Observação
+
+O Plano Essencial e o Plano Completo entregam exatamente as mesmas 120 receitas. A diferença do Plano Completo são somente os 6 bônus.
