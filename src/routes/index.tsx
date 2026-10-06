@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
-  BadgeCheck,
-  BookOpen,
   Check,
   CheckCircle2,
   ChefHat,
@@ -10,9 +8,7 @@ import {
   Gift,
   LockKeyhole,
   ShieldCheck,
-  ShoppingBasket,
   Smartphone,
-  Sparkles,
   UtensilsCrossed,
   X,
 } from "lucide-react";
@@ -266,41 +262,6 @@ function SalesPage() {
             {item}
           </span>
         ))}
-      </section>
-
-      <section className="sales-section receive">
-        <div className="sales-heading narrow">
-          <span className="sales-tag">SEU NOVO LIVRO DE RECEITAS</span>
-          <h2>Muito mais fácil do que ficar procurando receita todos os dias</h2>
-          <p>
-            Um único material para consultar quando faltar ideia, com opções
-            organizadas para diferentes momentos do dia.
-          </p>
-        </div>
-
-        <div className="receive-grid">
-          <ProductMockup compact />
-
-          <div className="feature-list">
-            {[
-              ["120 receitas completas", BookOpen],
-              ["Preparo passo a passo", ChefHat],
-              ["Lista de ingredientes", ShoppingBasket],
-              ["Tempo de preparo", Clock3],
-              ["Quantidade de porções", UtensilsCrossed],
-              ["Sugestões de substituições", Sparkles],
-              ["Imagens das receitas", BadgeCheck],
-            ].map(([text, Icon]) => {
-              const FeatureIcon = Icon as typeof BookOpen;
-              return (
-                <div className="feature-item" key={text as string}>
-                  <FeatureIcon size={20} />
-                  <span>{text as string}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
       <section className="sales-section categories">
