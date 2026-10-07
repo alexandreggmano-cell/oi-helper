@@ -178,6 +178,7 @@ function DynamicOfferDate() {
 function SalesPage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [activeProductPage, setActiveProductPage] = useState(0);
+  const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -194,6 +195,26 @@ function SalesPage() {
 
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (expandedProductPage === null) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setExpandedProductPage(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [expandedProductPage]);
 
   const previousProductPage = () => {
     setActiveProductPage((current) =>
@@ -299,13 +320,19 @@ function SalesPage() {
             >
               {productPages.map((page, index) => (
                 <article className="product-page-slide" key={page.image}>
-                  <div className="product-page-image-wrap">
+                  <button
+                    type="button"
+                    className="product-page-image-wrap"
+                    onClick={() => setExpandedProductPage(index)}
+                    aria-label={`Ampliar página: ${page.title}`}
+                  >
                     <img
                       src={page.image}
                       alt={page.title}
                       loading={index === 0 ? "eager" : "lazy"}
                     />
-                  </div>
+                    <span className="product-page-expand-hint">Toque para ampliar</span>
+                  </button>
                   <div className="product-page-caption">
                     <span>{page.label}</span>
                     <strong>{page.title}</strong>
@@ -357,6 +384,40 @@ function SalesPage() {
         <button className="sales-btn sales-btn-primary product-preview-cta" onClick={goToPlans}>
           QUERO VER AS OPÇÕES <ArrowRight size={18} />
         </button>
+
+        {expandedProductPage !== null && (
+          <div
+            className="product-page-lightbox"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Página ampliada do produto"
+            onClick={() => setExpandedProductPage(null)}
+          >
+            <div
+              className="product-page-lightbox-content"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="product-page-lightbox-close"
+                onClick={() => setExpandedProductPage(null)}
+                aria-label="Fechar imagem ampliada"
+              >
+                <X size={22} />
+              </button>
+
+              <img
+                src={productPages[expandedProductPage].image}
+                alt={productPages[expandedProductPage].title}
+              />
+
+              <div className="product-page-lightbox-caption">
+                <span>{productPages[expandedProductPage].label}</span>
+                <strong>{productPages[expandedProductPage].title}</strong>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="inside-section">
