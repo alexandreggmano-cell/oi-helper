@@ -31,45 +31,6 @@ export const Route = createFileRoute("/")({
 const CHECKOUT_ESSENCIAL = "#configurar-checkout-essencial";
 const CHECKOUT_COMPLETO = "#configurar-checkout-completo";
 
-const categories = [
-  {
-    title: "Café da manhã",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Lanches e salgados",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Almoços e jantares",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Bolos e receitas de forno",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Doces e sobremesas",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85",
-  },
-  {
-    title: "Receitas rápidas",
-    count: "20 receitas",
-    image:
-      "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=900&q=85",
-  },
-];
-
 const bonuses = [
   [
     "01",
@@ -396,29 +357,6 @@ function SalesPage() {
         <button className="sales-btn sales-btn-primary product-preview-cta" onClick={goToPlans}>
           QUERO VER AS OPÇÕES <ArrowRight size={18} />
         </button>
-      </section>
-
-      <section className="sales-section categories">
-        <div className="sales-heading">
-          <span className="sales-tag">VARIEDADE DE VERDADE</span>
-          <h2>6 categorias. 120 receitas.</h2>
-          <p>
-            Escolha o que combina com o momento — sem transformar a cozinha em
-            complicação.
-          </p>
-        </div>
-
-        <div className="category-grid">
-          {categories.map((category) => (
-            <article className="category-card" key={category.title}>
-              <img src={category.image} alt={category.title} />
-              <div>
-                <strong>{category.title}</strong>
-                <span>{category.count}</span>
-              </div>
-            </article>
-          ))}
-        </div>
       </section>
 
       <section className="inside-section">
