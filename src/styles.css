@@ -801,31 +801,6 @@ body {
   margin: 0;
 }
 
-.bonus-callout {
-  margin-top: 28px;
-  border-radius: 20px;
-  background: var(--sales-olive-dark);
-  color: #ffffff;
-  padding: 22px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.bonus-callout > div {
-  display: grid;
-}
-
-.bonus-callout strong {
-  font-size: 18px;
-}
-
-.bonus-callout span {
-  font-size: 13px;
-  opacity: 0.8;
-}
-
 .testimonial-carousel {
   position: relative;
   width: min(100%, 470px);
@@ -1596,15 +1571,6 @@ body {
 
   .bonus-card {
     padding: 15px;
-  }
-
-  .bonus-callout {
-    display: grid;
-    text-align: center;
-  }
-
-  .bonus-callout .sales-btn {
-    width: 100%;
   }
 
   .testimonial-carousel {
