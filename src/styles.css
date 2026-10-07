@@ -1089,6 +1089,20 @@ body {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.final-mockup-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 26px auto 4px;
+}
+
+.final-mockup-image {
+  width: min(100%, 430px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.16));
+}
+
 .final-actions {
   display: grid;
   gap: 11px;
@@ -1470,6 +1484,15 @@ body {
     padding: 34px 18px;
     gap: 28px;
     border-radius: 22px;
+  }
+
+  .final-mockup-wrap {
+    margin: 20px auto 2px;
+  }
+
+  .final-mockup-image {
+    width: min(100%, 360px);
+    filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.14));
   }
 
   .final-actions .sales-btn {
