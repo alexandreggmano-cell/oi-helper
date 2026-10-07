@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Check,
   CheckCircle2,
   ChefHat,
@@ -101,6 +103,14 @@ const bonuses = [
   ],
 ] as const;
 
+const testimonialImages = [
+  "/18ea853a-6e64-4cdd-9838-e2d80028ff2a.png",
+  "/7219cac0-83d5-4594-bca2-b7ae5cb2f4ac.png",
+  "/62928dac-c5e7-4df9-86e7-f84cdbc4e862.png",
+  "/a3532467-d96f-4551-b8ff-91c539bfc1f9.png",
+  "/e5527911-4343-4e07-a522-6bb21e104d3a.png",
+] as const;
+
 const faqs = [
   [
     "O que é o Receitas Sem Cara de Dieta?",
@@ -177,6 +187,26 @@ function DynamicOfferDate() {
 }
 
 function SalesPage() {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const previousTestimonial = () => {
+    setActiveTestimonial((current) =>
+      current === 0 ? testimonialImages.length - 1 : current - 1,
+    );
+  };
+
+  const nextTestimonial = () => {
+    setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
+  };
+
   return (
     <main className="sales-page">
       <DynamicOfferDate />
@@ -454,22 +484,60 @@ function SalesPage() {
 
       <section className="sales-section social-proof">
         <div className="sales-heading">
-          <span className="sales-tag">PROVA SOCIAL</span>
-          <h2>O que estão dizendo sobre o material</h2>
+          <span className="sales-tag">FEEDBACKS</span>
+          <h2>Veja algumas mensagens sobre o material</h2>
           <p>
-            Espaço preparado para inserir depoimentos reais quando estiverem
-            disponíveis.
+            Conversas ilustrativas apresentadas em formato de carrossel.
           </p>
         </div>
 
-        <div className="testimonial-grid">
-          {[1, 2, 3].map((number) => (
-            <article className="testimonial-placeholder" key={number}>
-              <span>DEPOIMENTO REAL {number}</span>
-              <p>[INSERIR DEPOIMENTO REAL {number}]</p>
-              <small>Adicione aqui um print ou relato verdadeiro de cliente.</small>
-            </article>
-          ))}
+        <div className="testimonial-carousel" aria-roledescription="carrossel">
+          <div className="testimonial-viewport">
+            <div
+              className="testimonial-track"
+              style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
+            >
+              {testimonialImages.map((image, index) => (
+                <div className="testimonial-slide" key={image}>
+                  <img
+                    src={image}
+                    alt={`Conversa ilustrativa ${index + 1}`}
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="testimonial-arrow testimonial-arrow-left"
+            onClick={previousTestimonial}
+            aria-label="Ver imagem anterior"
+          >
+            <ChevronLeft size={22} />
+          </button>
+
+          <button
+            type="button"
+            className="testimonial-arrow testimonial-arrow-right"
+            onClick={nextTestimonial}
+            aria-label="Ver próxima imagem"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          <div className="testimonial-dots" aria-label="Selecionar imagem">
+            {testimonialImages.map((image, index) => (
+              <button
+                type="button"
+                key={image}
+                className={index === activeTestimonial ? "active" : ""}
+                onClick={() => setActiveTestimonial(index)}
+                aria-label={`Ir para imagem ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
