@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -201,12 +202,36 @@ function ProductMockup({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function DynamicOfferDate() {
+  const [today, setToday] = useState("");
+
+  useEffect(() => {
+    const updateDate = () => {
+      setToday(
+        new Intl.DateTimeFormat("pt-BR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        }).format(new Date()),
+      );
+    };
+
+    updateDate();
+    const interval = window.setInterval(updateDate, 60 * 1000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="sales-topbar">
+      🍰 OFERTA DISPONÍVEL HOJE{today ? ` • ${today}` : ""}
+    </div>
+  );
+}
+
 function SalesPage() {
   return (
     <main className="sales-page">
-      <div className="sales-topbar">
-        🍰 ACESSO DIGITAL <span>•</span> PAGAMENTO ÚNICO <span>•</span> GARANTIA DE 7 DIAS
-      </div>
+      <DynamicOfferDate />
 
       <section className="sales-section hero">
         <div className="hero-copy">
