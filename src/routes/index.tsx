@@ -448,48 +448,13 @@ function SalesPage() {
             </button>
           </div>
 
-          <div className="page-fan">
-            <article className="inside-page rotate-left">
-              <img
-                src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=700&q=85"
-                alt="Café da manhã"
-              />
-              <small>CAFÉ DA MANHÃ</small>
-              <strong>Toast cremoso</strong>
-              <div className="mini-lines">
-                <i />
-                <i />
-                <i />
-              </div>
-            </article>
-
-            <article className="inside-page front">
-              <img
-                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=85"
-                alt="Refeição colorida"
-              />
-              <small>ALMOÇO</small>
-              <strong>Bowl prático</strong>
-              <div className="mini-lines">
-                <i />
-                <i />
-                <i />
-              </div>
-            </article>
-
-            <article className="inside-page rotate-right">
-              <img
-                src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=700&q=85"
-                alt="Sobremesa"
-              />
-              <small>SOBREMESA</small>
-              <strong>Doce cremoso</strong>
-              <div className="mini-lines">
-                <i />
-                <i />
-                <i />
-              </div>
-            </article>
+          <div className="inside-mockup-wrap">
+            <img
+              src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
+              alt="Mockup do produto Receitas Sem Cara de Dieta"
+              className="inside-mockup-image"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
