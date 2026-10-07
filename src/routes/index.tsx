@@ -689,7 +689,7 @@ function SalesPage() {
 
       <section className="sales-section final-cta">
         <div className="final-card">
-          <div>
+          <div className="final-copy">
             <span className="sales-tag light-tag">PRONTO PARA ESCOLHER?</span>
             <h2>
               120 receitas para você ter muito mais opções na hora de decidir o que
@@ -699,6 +699,15 @@ function SalesPage() {
               Escolha entre receber somente as 120 receitas ou liberar também o
               pacote completo com todos os 6 bônus.
             </p>
+
+            <div className="final-mockup-wrap">
+              <img
+                src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
+                alt="Mockup do produto Receitas Sem Cara de Dieta"
+                className="final-mockup-image"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           <div className="final-actions">
