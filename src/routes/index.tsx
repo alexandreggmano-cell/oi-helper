@@ -632,7 +632,7 @@ function SalesPage() {
         </div>
 
         <div className="plan-grid">
-          <article className="plan-card">
+          <article className="plan-card plan-card-essential">
             <div className="plan-head">
               <small>PLANO ESSENCIAL</small>
               <h3>120 RECEITAS</h3>
@@ -643,15 +643,10 @@ function SalesPage() {
               <span>pagamento único</span>
             </div>
 
-            <div className="plan-list">
+            <div className="plan-list compact">
               {[
                 "120 Receitas Sem Cara de Dieta",
-                "20 Cafés da Manhã",
-                "20 Lanches e Salgados",
-                "20 Almoços e Jantares",
-                "20 Bolos e Receitas de Forno",
-                "20 Doces e Sobremesas",
-                "20 Receitas Rápidas",
+                "6 categorias com 20 receitas cada",
                 "Ingredientes",
                 "Modo de preparo",
                 "Sugestões de substituições",
@@ -663,19 +658,10 @@ function SalesPage() {
                 </span>
               ))}
 
-              {[
-                "Guia de Substituições Inteligentes",
-                "Método 3 Trocas",
-                "Cardápio Prático de 14 Dias",
-                "30 Sobremesas Extras",
-                "Guia de Preparação e Conservação",
-                "Lista de Compras Inteligente",
-              ].map((item) => (
-                <span className="muted" key={item}>
-                  <X size={16} />
-                  {item}
-                </span>
-              ))}
+              <span className="muted">
+                <X size={16} />
+                Não inclui os 6 bônus extras
+              </span>
             </div>
 
             <a className="sales-btn sales-btn-outline full" href={CHECKOUT_ESSENCIAL}>
@@ -696,9 +682,39 @@ function SalesPage() {
               <span>pagamento único</span>
             </div>
 
-            <div className="everything">
-              <CheckCircle2 size={19} /> TUDO DO PLANO ESSENCIAL
+            <div className="plan-mockup-wrap">
+              <img
+                src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
+                alt="Mockup do produto Receitas Sem Cara de Dieta"
+                className="plan-mockup-image"
+                loading="lazy"
+              />
             </div>
+
+            <div className="plan-section-label">PRODUTO PRINCIPAL</div>
+
+            <div className="plan-list">
+              {[
+                "120 Receitas Sem Cara de Dieta",
+                "20 Cafés da Manhã",
+                "20 Lanches e Salgados",
+                "20 Almoços e Jantares",
+                "20 Bolos e Receitas de Forno",
+                "20 Doces e Sobremesas",
+                "20 Receitas Rápidas",
+                "Ingredientes",
+                "Modo de preparo",
+                "Sugestões de substituições",
+                "Tempo e porções",
+              ].map((item) => (
+                <span key={item}>
+                  <Check size={16} />
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="plan-section-label">BÔNUS INCLUSOS</div>
 
             <div className="plan-list bonuses-list">
               {bonuses.map(([, title]) => (
