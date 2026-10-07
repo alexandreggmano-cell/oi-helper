@@ -103,6 +103,34 @@ const bonuses = [
   ],
 ] as const;
 
+const productPages = [
+  {
+    image: "/pagina_11_cafe_da_manha.png",
+    label: "Produto principal",
+    title: "Café da manhã",
+  },
+  {
+    image: "/pagina_22_lanches_salgados.png",
+    label: "Produto principal",
+    title: "Lanches e salgados",
+  },
+  {
+    image: "/pagina_44_bolos.png",
+    label: "Produto principal",
+    title: "Bolos e receitas de forno",
+  },
+  {
+    image: "/pagina_81_cardapio_14_dias.png",
+    label: "Bônus do Plano Completo",
+    title: "Cardápio prático de 14 dias",
+  },
+  {
+    image: "/pagina_96_lista_de_compras.png",
+    label: "Bônus do Plano Completo",
+    title: "Lista de compras inteligente",
+  },
+] as const;
+
 const testimonialImages = [
   "/18ea853a-6e64-4cdd-9838-e2d80028ff2a.png",
   "/7219cac0-83d5-4594-bca2-b7ae5cb2f4ac.png",
@@ -271,6 +299,43 @@ function SalesPage() {
             {item}
           </span>
         ))}
+      </section>
+
+      <section className="sales-section product-preview">
+        <div className="sales-heading narrow">
+          <span className="sales-tag">O QUE VOCÊ VAI RECEBER</span>
+          <h2>Veja algumas páginas reais do material</h2>
+          <p>
+            Uma prévia do conteúdo para você entender como as receitas e os materiais
+            extras são organizados por dentro.
+          </p>
+        </div>
+
+        <div className="product-pages-grid">
+          {productPages.map((page) => (
+            <article className="product-page-card" key={page.image}>
+              <div className="product-page-image-wrap">
+                <img src={page.image} alt={page.title} loading="lazy" />
+              </div>
+              <div className="product-page-caption">
+                <span>{page.label}</span>
+                <strong>{page.title}</strong>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="product-preview-note">
+          <CheckCircle2 size={18} />
+          <p>
+            O Plano Essencial inclui as 120 receitas completas. Os materiais marcados
+            como bônus fazem parte somente do Plano Completo.
+          </p>
+        </div>
+
+        <button className="sales-btn sales-btn-primary product-preview-cta" onClick={goToPlans}>
+          QUERO VER AS OPÇÕES <ArrowRight size={18} />
+        </button>
       </section>
 
       <section className="sales-section categories">
