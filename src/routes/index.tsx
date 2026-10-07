@@ -600,31 +600,6 @@ function SalesPage() {
         </div>
       </section>
 
-      <section className="sales-section choice">
-        <div className="choice-box">
-          <span className="sales-tag">VOCÊ ESCOLHE</span>
-          <h2>Um produto. Duas formas de comprar.</h2>
-
-          <div className="choice-options">
-            <div>
-              <small>Quero apenas as 120 receitas</small>
-              <strong>R$9,90</strong>
-            </div>
-
-            <span className="or">OU</span>
-
-            <div className="choice-best">
-              <small>120 receitas + TODOS OS 6 BÔNUS</small>
-              <strong>R$19,90</strong>
-            </div>
-          </div>
-
-          <p>
-            A diferença é de apenas <strong>R$10.</strong>
-          </p>
-        </div>
-      </section>
-
       <section className="sales-section guarantee">
         <div className="guarantee-badge">
           <ShieldCheck size={44} />
