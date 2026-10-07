@@ -216,6 +216,7 @@ function DynamicOfferDate() {
 
 function SalesPage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activeProductPage, setActiveProductPage] = useState(0);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -224,6 +225,24 @@ function SalesPage() {
 
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveProductPage((current) => (current + 1) % productPages.length);
+    }, 3800);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const previousProductPage = () => {
+    setActiveProductPage((current) =>
+      current === 0 ? productPages.length - 1 : current - 1,
+    );
+  };
+
+  const nextProductPage = () => {
+    setActiveProductPage((current) => (current + 1) % productPages.length);
+  };
 
   const previousTestimonial = () => {
     setActiveTestimonial((current) =>
@@ -311,18 +330,59 @@ function SalesPage() {
           </p>
         </div>
 
-        <div className="product-pages-grid">
-          {productPages.map((page) => (
-            <article className="product-page-card" key={page.image}>
-              <div className="product-page-image-wrap">
-                <img src={page.image} alt={page.title} loading="lazy" />
-              </div>
-              <div className="product-page-caption">
-                <span>{page.label}</span>
-                <strong>{page.title}</strong>
-              </div>
-            </article>
-          ))}
+        <div className="product-pages-carousel" aria-roledescription="carrossel">
+          <div className="product-pages-viewport">
+            <div
+              className="product-pages-track"
+              style={{ transform: `translateX(-${activeProductPage * 100}%)` }}
+            >
+              {productPages.map((page, index) => (
+                <article className="product-page-slide" key={page.image}>
+                  <div className="product-page-image-wrap">
+                    <img
+                      src={page.image}
+                      alt={page.title}
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
+                  <div className="product-page-caption">
+                    <span>{page.label}</span>
+                    <strong>{page.title}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className="product-page-arrow product-page-arrow-left"
+            onClick={previousProductPage}
+            aria-label="Ver página anterior"
+          >
+            <ChevronLeft size={22} />
+          </button>
+
+          <button
+            type="button"
+            className="product-page-arrow product-page-arrow-right"
+            onClick={nextProductPage}
+            aria-label="Ver próxima página"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          <div className="product-page-dots" aria-label="Selecionar página">
+            {productPages.map((page, index) => (
+              <button
+                type="button"
+                key={page.image}
+                className={index === activeProductPage ? "active" : ""}
+                onClick={() => setActiveProductPage(index)}
+                aria-label={`Ir para página ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="product-preview-note">
