@@ -718,61 +718,19 @@ body {
   color: var(--sales-olive);
 }
 
-.page-fan {
+.inside-mockup-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 430px;
-  position: relative;
 }
 
-.inside-page {
-  position: absolute;
-  width: 42%;
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 10px;
-  box-shadow: var(--sales-shadow);
-  border: 1px solid var(--sales-line);
-}
-
-.inside-page img {
-  height: 250px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 9px;
-}
-
-.inside-page small,
-.inside-page strong {
+.inside-mockup-image {
   display: block;
-}
-
-.inside-page small {
-  font-size: 9px;
-  color: var(--sales-olive);
-  font-weight: 800;
-  margin-top: 10px;
-}
-
-.inside-page strong {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 18px;
-}
-
-.inside-page.rotate-left {
-  left: 3%;
-  top: 55px;
-  transform: rotate(-8deg);
-}
-
-.inside-page.front {
-  left: 29%;
-  top: 12px;
-  z-index: 3;
-}
-
-.inside-page.rotate-right {
-  right: 1%;
-  top: 60px;
-  transform: rotate(8deg);
+  width: min(100%, 560px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 34px rgba(49, 55, 42, 0.14));
 }
 
 .practical-grid {
@@ -1650,33 +1608,14 @@ body {
     width: 100%;
   }
 
-  .page-fan {
-    min-height: 300px;
+  .inside-mockup-wrap {
+    min-height: auto;
+    margin-top: 8px;
   }
 
-  .inside-page {
-    width: 47%;
-    padding: 7px;
-  }
-
-  .inside-page img {
-    height: 165px;
-  }
-
-  .inside-page.rotate-left {
-    left: 0;
-  }
-
-  .inside-page.front {
-    left: 27%;
-  }
-
-  .inside-page.rotate-right {
-    right: 0;
-  }
-
-  .inside-page strong {
-    font-size: 13px;
+  .inside-mockup-image {
+    width: min(100%, 430px);
+    filter: drop-shadow(0 16px 24px rgba(49, 55, 42, 0.12));
   }
 
   .practical-grid {
