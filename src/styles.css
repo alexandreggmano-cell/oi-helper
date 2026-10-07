@@ -674,33 +674,99 @@ body {
   opacity: 0.8;
 }
 
-.testimonial-grid {
+.testimonial-carousel {
+  position: relative;
+  width: min(100%, 470px);
+  margin: 0 auto;
+  padding: 0 48px 34px;
+}
+
+.testimonial-viewport {
+  overflow: hidden;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 18px 44px rgba(49, 55, 42, 0.1);
+  border: 1px solid var(--sales-line);
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.testimonial-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.testimonial-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.testimonial-arrow {
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--sales-line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--sales-olive-dark);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(49, 55, 42, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+  z-index: 2;
 }
 
-.testimonial-placeholder {
-  border: 1px dashed #bab4a8;
-  background: #fbfaf7;
-  border-radius: 18px;
-  padding: 22px;
+.testimonial-arrow:hover {
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 10px 26px rgba(49, 55, 42, 0.14);
 }
 
-.testimonial-placeholder > span {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  color: var(--sales-olive);
-  font-weight: 800;
+.testimonial-arrow-left {
+  left: 0;
 }
 
-.testimonial-placeholder p {
-  font-weight: 700;
-  margin: 20px 0;
+.testimonial-arrow-right {
+  right: 0;
 }
 
-.testimonial-placeholder small {
-  color: var(--sales-muted);
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.testimonial-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #cfd4c8;
+  cursor: pointer;
+  transition:
+    width 0.2s ease,
+    background 0.2s ease;
+}
+
+.testimonial-dots button.active {
+  width: 24px;
+  background: var(--sales-olive);
 }
 
 .plans {
@@ -1338,8 +1404,22 @@ body {
     width: 100%;
   }
 
-  .testimonial-grid {
-    grid-template-columns: 1fr;
+  .testimonial-carousel {
+    width: min(100%, 390px);
+    padding: 0 34px 28px;
+  }
+
+  .testimonial-viewport {
+    border-radius: 18px;
+  }
+
+  .testimonial-arrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .testimonial-dots {
+    margin-top: 14px;
   }
 
   .plan-grid {
