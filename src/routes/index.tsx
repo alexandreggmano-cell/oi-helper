@@ -5,12 +5,10 @@ import {
   Check,
   CheckCircle2,
   ChefHat,
-  Clock3,
   Gift,
   LockKeyhole,
   ShieldCheck,
   Smartphone,
-  UtensilsCrossed,
   X,
 } from "lucide-react";
 
@@ -152,56 +150,6 @@ function goToPlans() {
   document.getElementById("planos")?.scrollIntoView({ behavior: "smooth" });
 }
 
-function ProductMockup({ compact = false }: { compact?: boolean }) {
-  return (
-    <div
-      className={compact ? "product-scene compact" : "product-scene"}
-      aria-label="Mockup do produto digital Receitas Sem Cara de Dieta"
-    >
-      <div className="tablet">
-        <div className="tablet-screen">
-          <div className="recipe-page">
-            <span className="eyebrow">CAFÉ DA MANHÃ</span>
-            <h3>Panqueca macia de banana</h3>
-            <img
-              src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?auto=format&fit=crop&w=900&q=85"
-              alt="Panquecas servidas em um prato"
-            />
-            <div className="recipe-meta">
-              <span>
-                <Clock3 size={14} /> 15 min
-              </span>
-              <span>
-                <UtensilsCrossed size={14} /> 2 porções
-              </span>
-            </div>
-            <div className="mini-lines">
-              <i />
-              <i />
-              <i />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="book-cover">
-        <img src="/recipe-cover.svg" alt="Capa do Receitas Sem Cara de Dieta" />
-      </div>
-
-      <div className="phone">
-        <div className="phone-screen">
-          <img
-            src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=500&q=85"
-            alt="Receita servida em prato"
-          />
-          <strong>Receita prática</strong>
-          <small>Ingredientes + passo a passo</small>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function DynamicOfferDate() {
   const [today, setToday] = useState("");
 
@@ -244,6 +192,14 @@ function SalesPage() {
             <em>SEM CARA DE DIETA</em>
           </h1>
 
+          <div className="hero-mockup-wrap">
+            <img
+              src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
+              alt="Mockup do produto Receitas Sem Cara de Dieta"
+              className="hero-mockup-image"
+            />
+          </div>
+
           <p className="hero-sub">
             Receitas práticas e apetitosas, sem açúcar adicionado, sem glúten e sem
             lactose, organizadas para você variar suas refeições sem precisar ficar
@@ -270,8 +226,6 @@ function SalesPage() {
             </span>
           </div>
         </div>
-
-        <ProductMockup />
       </section>
 
       <section className="benefit-strip">
