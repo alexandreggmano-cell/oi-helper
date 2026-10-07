@@ -988,6 +988,7 @@ body {
   border: 2px solid var(--sales-olive);
   box-shadow: 0 24px 60px rgba(64, 76, 51, 0.12);
   padding-top: 38px;
+  padding-bottom: 28px;
 }
 
 .most-chosen {
@@ -1056,6 +1057,15 @@ body {
   padding: 22px 0;
 }
 
+.plan-list.compact {
+  gap: 10px;
+  padding-bottom: 18px;
+}
+
+.plan-card-essential {
+  padding-bottom: 24px;
+}
+
 .plan-list span {
   display: flex;
   gap: 8px;
@@ -1076,20 +1086,31 @@ body {
   color: #b5b8af;
 }
 
-.everything {
-  margin-top: 20px;
-  background: var(--sales-cream);
-  border-radius: 12px;
-  padding: 11px 13px;
-  font-size: 12px;
-  font-weight: 900;
+.plan-mockup-wrap {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
+  margin: 18px auto 20px;
 }
 
-.everything svg {
-  color: var(--sales-olive);
+.plan-mockup-image {
+  display: block;
+  width: min(100%, 290px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 26px rgba(49, 55, 42, 0.14));
+}
+
+.plan-section-label {
+  margin: 4px 0 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--sales-cream);
+  color: var(--sales-olive-dark);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-align: center;
 }
 
 .bonuses-list {
@@ -1682,6 +1703,24 @@ body {
   .plan-card.featured {
     order: -1;
     padding-top: 34px;
+  }
+
+  .plan-mockup-wrap {
+    margin: 14px auto 16px;
+  }
+
+  .plan-mockup-image {
+    width: min(100%, 225px);
+    filter: drop-shadow(0 13px 20px rgba(49, 55, 42, 0.12));
+  }
+
+  .plan-section-label {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+
+  .plan-card-essential .plan-list {
+    padding-top: 18px;
   }
 
   .plan-head h3 {
