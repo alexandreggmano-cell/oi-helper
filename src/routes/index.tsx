@@ -595,15 +595,6 @@ function SalesPage() {
             ))}
           </div>
 
-          <div className="bonus-callout">
-            <div>
-              <strong>🔥 Leve os 6 bônus junto com as 120 receitas</strong>
-              <span>adicionando apenas R$10 ao seu pedido.</span>
-            </div>
-            <a className="sales-btn sales-btn-light" href={CHECKOUT_COMPLETO}>
-              QUERO O PACOTE COMPLETO POR R$19,90 <ArrowRight size={18} />
-            </a>
-          </div>
         </div>
       </section>
 
