@@ -695,13 +695,7 @@ function SalesPage() {
         </div>
       </section>
 
-      <footer className="sales-footer">
-        <img src="/recipe-cover.svg" alt="" />
-        <div>
-          <strong>Receitas Sem Cara de Dieta</strong>
-          <span>Produto digital em PDF • Pagamento único</span>
-        </div>
-      </footer>
+      
     </main>
   );
 }
