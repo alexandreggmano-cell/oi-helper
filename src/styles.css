@@ -128,20 +128,47 @@ body {
   text-decoration: none;
   cursor: pointer;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
+    filter 0.2s ease,
     background 0.2s ease;
+  animation: salesCtaPulse 2.6s ease-in-out infinite;
+}
+
+.sales-btn::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  bottom: -40%;
+  left: -45%;
+  width: 28%;
+  z-index: -1;
+  pointer-events: none;
+  transform: skewX(-18deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.24),
+    transparent
+  );
+  animation: salesCtaShine 4.2s ease-in-out infinite;
 }
 
 .sales-btn:hover {
   transform: translateY(-2px);
+  filter: brightness(1.06);
 }
 
 .sales-btn-primary {
   background: var(--sales-olive-dark);
   color: #ffffff;
-  box-shadow: 0 11px 24px rgba(69, 83, 53, 0.18);
+  box-shadow:
+    0 11px 24px rgba(69, 83, 53, 0.22),
+    0 0 0 1px rgba(117, 139, 87, 0.08);
 }
 
 .sales-btn-secondary {
@@ -168,6 +195,53 @@ body {
   background: transparent;
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.38);
+}
+
+
+@keyframes salesCtaPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 9px 22px rgba(69, 83, 53, 0.16),
+      0 0 0 0 rgba(101, 117, 75, 0);
+    filter: brightness(1);
+  }
+
+  50% {
+    box-shadow:
+      0 12px 28px rgba(69, 83, 53, 0.24),
+      0 0 0 5px rgba(101, 117, 75, 0.07);
+    filter: brightness(1.045);
+  }
+}
+
+@keyframes salesCtaShine {
+  0%,
+  68% {
+    left: -45%;
+    opacity: 0;
+  }
+
+  73% {
+    opacity: 0.65;
+  }
+
+  88% {
+    left: 118%;
+    opacity: 0;
+  }
+
+  100% {
+    left: 118%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sales-btn,
+  .sales-btn::after {
+    animation: none;
+  }
 }
 
 .sales-trust-row {
