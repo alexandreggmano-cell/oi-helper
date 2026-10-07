@@ -67,12 +67,20 @@ body {
 }
 
 .hero {
-  min-height: 690px;
+  min-height: auto;
   display: grid;
-  grid-template-columns: 1.02fr 0.98fr;
-  gap: 60px;
+  grid-template-columns: 1fr;
+  gap: 28px;
   align-items: center;
   padding-top: 58px;
+  padding-bottom: 54px;
+}
+
+.hero-copy {
+  width: 100%;
+  max-width: 940px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .sales-kicker,
@@ -92,8 +100,8 @@ body {
   font-size: clamp(50px, 6vw, 82px);
   line-height: 0.94;
   letter-spacing: -0.04em;
-  margin: 20px 0 22px;
-  max-width: 720px;
+  margin: 20px auto 22px;
+  max-width: 760px;
 }
 
 .hero h1 em {
@@ -105,13 +113,30 @@ body {
 .hero-sub {
   font-size: 19px;
   color: #4c554b;
-  max-width: 650px;
-  margin: 0 0 12px;
+  max-width: 760px;
+  margin: 0 auto 12px;
 }
 
 .hero-note {
   font-weight: 700;
   margin: 0 0 28px;
+  text-align: center;
+}
+
+.hero-mockup-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px auto 20px;
+}
+
+.hero-mockup-image {
+  display: block;
+  width: min(100%, 680px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 38px rgba(31, 38, 27, 0.14));
 }
 
 .sales-btn {
@@ -248,6 +273,7 @@ body {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
+  justify-content: center;
   color: var(--sales-muted);
   font-size: 12px;
   margin-top: 18px;
@@ -257,142 +283,6 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-}
-
-.product-scene {
-  position: relative;
-  min-height: 520px;
-}
-
-.tablet {
-  position: absolute;
-  width: 78%;
-  right: 2%;
-  top: 4%;
-  background: #242724;
-  border-radius: 28px;
-  padding: 12px;
-  box-shadow: var(--sales-shadow);
-  transform: rotate(2deg);
-}
-
-.tablet-screen {
-  background: var(--sales-cream);
-  border-radius: 18px;
-  overflow: hidden;
-}
-
-.recipe-page {
-  padding: 20px;
-}
-
-.recipe-page .eyebrow {
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  color: var(--sales-olive);
-  font-weight: 800;
-}
-
-.recipe-page h3 {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 24px;
-  margin: 4px 0 14px;
-}
-
-.recipe-page img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.recipe-meta {
-  display: flex;
-  gap: 14px;
-  margin-top: 12px;
-  font-size: 10px;
-  color: var(--sales-muted);
-}
-
-.recipe-meta span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.mini-lines {
-  display: grid;
-  gap: 6px;
-  margin-top: 14px;
-}
-
-.mini-lines i {
-  display: block;
-  height: 5px;
-  background: #e4dfd4;
-  border-radius: 99px;
-}
-
-.mini-lines i:nth-child(2) {
-  width: 78%;
-}
-
-.mini-lines i:nth-child(3) {
-  width: 58%;
-}
-
-.book-cover {
-  position: absolute;
-  width: 40%;
-  left: 0;
-  bottom: 2%;
-  transform: rotate(-5deg);
-  filter: drop-shadow(0 20px 24px rgba(36, 42, 33, 0.18));
-}
-
-.book-cover img {
-  border-radius: 6px;
-}
-
-.phone {
-  position: absolute;
-  width: 27%;
-  right: 0;
-  bottom: -2%;
-  background: #1e211e;
-  border-radius: 28px;
-  padding: 8px;
-  box-shadow: var(--sales-shadow);
-  transform: rotate(5deg);
-}
-
-.phone-screen {
-  background: #ffffff;
-  border-radius: 21px;
-  padding: 8px 8px 14px;
-}
-
-.phone-screen img {
-  height: 145px;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 15px;
-}
-
-.phone-screen strong,
-.phone-screen small {
-  display: block;
-  padding: 0 5px;
-}
-
-.phone-screen strong {
-  font-size: 11px;
-  margin-top: 9px;
-}
-
-.phone-screen small {
-  font-size: 8px;
-  color: var(--sales-muted);
 }
 
 .benefit-strip {
@@ -1187,29 +1077,12 @@ body {
   }
 
   .hero {
-    grid-template-columns: 1fr;
-    gap: 26px;
+    gap: 22px;
     padding-top: 44px;
   }
 
-  .hero-copy {
-    text-align: center;
-  }
-
-  .hero h1,
-  .hero-sub {
-    margin-inline: auto;
-  }
-
-  .sales-trust-row {
-    justify-content: center;
-  }
-
-  .product-scene {
-    min-height: 470px;
-    max-width: 620px;
-    width: 100%;
-    margin: auto;
+  .hero-mockup-image {
+    width: min(100%, 600px);
   }
 
   .receive-grid,
@@ -1221,11 +1094,6 @@ body {
 
   .receive-grid {
     gap: 30px;
-  }
-
-  .product-scene.compact {
-    max-width: 620px;
-    margin: auto;
   }
 
   .inside-shell {
@@ -1317,53 +1185,21 @@ body {
     font-size: 14px;
   }
 
+  .hero-mockup-wrap {
+    margin: 8px auto 14px;
+  }
+
+  .hero-mockup-image {
+    width: min(100%, 470px);
+    filter: drop-shadow(0 18px 26px rgba(31, 38, 27, 0.12));
+  }
+
   .hero .sales-btn {
     width: 100%;
   }
 
   .sales-trust-row {
     gap: 8px 14px;
-  }
-
-  .product-scene {
-    min-height: 365px;
-  }
-
-  .tablet {
-    width: 80%;
-    right: 0;
-  }
-
-  .recipe-page {
-    padding: 12px;
-  }
-
-  .recipe-page h3 {
-    font-size: 16px;
-  }
-
-  .recipe-page img {
-    height: 145px;
-  }
-
-  .book-cover {
-    width: 42%;
-  }
-
-  .phone {
-    width: 28%;
-    border-radius: 19px;
-    padding: 5px;
-  }
-
-  .phone-screen {
-    border-radius: 15px;
-    padding: 5px 5px 9px;
-  }
-
-  .phone-screen img {
-    height: 90px;
-    border-radius: 10px;
   }
 
   .benefit-strip {
@@ -1397,14 +1233,6 @@ body {
 
   .receive-grid {
     gap: 22px;
-  }
-
-  .product-scene.compact {
-    min-height: 340px;
-  }
-
-  .product-scene.compact .recipe-page img {
-    height: 120px;
   }
 
   .feature-list {
