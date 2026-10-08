@@ -412,10 +412,13 @@ body {
 
 .product-pages-viewport,
 .testimonial-viewport,
-.plan-card,
 .bonus-card,
 .practical-card {
   contain: layout paint;
+}
+
+.plan-card {
+  contain: layout;
 }
 
 .testimonial-viewport {
