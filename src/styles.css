@@ -772,6 +772,42 @@ body {
   color: #adb2a8;
 }
 
+/* Complete plan: make the included benefits easier to scan on mobile. */
+.plan-card.featured .plan-list {
+  gap: 13px;
+  padding: 22px 2px;
+}
+
+.plan-card.featured .plan-list span {
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.plan-card.featured .plan-list svg {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  stroke-width: 2.25;
+}
+
+.plan-card.featured .plan-list span:first-child {
+  color: var(--olive-dark);
+  font-weight: 800;
+}
+
+.plan-card.featured .bonuses-list {
+  gap: 14px;
+  padding-top: 18px;
+}
+
+.plan-card.featured .bonuses-list span {
+  font-size: 14.5px;
+}
+
+
 .plan-mockup-wrap {
   margin: 14px auto 16px;
 }
@@ -783,14 +819,14 @@ body {
 }
 
 .plan-section-label {
-  padding: 9px 10px;
-  border-radius: 11px;
+  padding: 11px 12px;
+  border-radius: 12px;
   background: var(--cream);
   color: var(--olive-dark);
   text-align: center;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 900;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.075em;
 }
 
 .bonuses-list {
@@ -798,9 +834,9 @@ body {
 }
 
 .ten-more {
-  margin-bottom: 14px;
-  padding: 12px;
-  border-radius: 13px;
+  margin-bottom: 16px;
+  padding: 15px 12px;
+  border-radius: 14px;
   background: var(--sage);
   text-align: center;
 }
@@ -812,12 +848,13 @@ body {
 
 .ten-more strong {
   color: var(--olive-dark);
-  font-size: 11px;
+  font-size: 13px;
+  letter-spacing: -0.01em;
 }
 
 .ten-more span {
-  margin-top: 2px;
-  font-size: 10px;
+  margin-top: 3px;
+  font-size: 11px;
 }
 
 .plan-trust {
