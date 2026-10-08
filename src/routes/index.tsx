@@ -269,9 +269,55 @@ function shouldPrefetchHeavyImages() {
   return !effectiveType.includes("2g") && !effectiveType.includes("3g");
 }
 
+function warmImageCache(urls: readonly string[]) {
+  let cancelled = false;
+  let index = 0;
+
+  const loadNext = () => {
+    if (cancelled || index >= urls.length) return;
+
+    const image = new window.Image();
+    image.decoding = "async";
+    image.fetchPriority = "low";
+    image.onload = () => {
+      index += 1;
+      window.setTimeout(loadNext, 250);
+    };
+    image.onerror = () => {
+      index += 1;
+      window.setTimeout(loadNext, 250);
+    };
+    image.src = urls[index];
+  };
+
+  const start = () => {
+    if (!cancelled) loadNext();
+  };
+
+  const win = window as Window & {
+    requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+    cancelIdleCallback?: (id: number) => void;
+  };
+
+  let idleId: number | undefined;
+  let timeoutId: number | undefined;
+
+  if (win.requestIdleCallback) {
+    idleId = win.requestIdleCallback(start, { timeout: 1800 });
+  } else {
+    timeoutId = window.setTimeout(start, 1200);
+  }
+
+  return () => {
+    cancelled = true;
+    if (idleId !== undefined && win.cancelIdleCallback) win.cancelIdleCallback(idleId);
+    if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+  };
+}
+
 function SalesPage() {
-  const [productCarouselRef, productNearViewport] = useNearViewport("320px");
-  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("420px");
+  const [productCarouselRef, productNearViewport] = useNearViewport("1200px");
+  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("1200px");
 
   const [activeTestimonial, setActiveTestimonial] = useAutoCarousel(
     testimonialImages.length,
@@ -286,6 +332,18 @@ function SalesPage() {
   const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!shouldPrefetchHeavyImages()) return;
+
+    return warmImageCache([
+      productPages[0].image,
+      testimonialImages[0],
+      productPages[1].image,
+      testimonialImages[1],
+      testimonialImages[2],
+    ]);
+  }, []);
+
+  useEffect(() => {
     if (!testimonialNearViewport || !shouldPrefetchHeavyImages()) return;
 
     const timer = window.setTimeout(() => {
@@ -294,7 +352,7 @@ function SalesPage() {
       image.decoding = "async";
       image.fetchPriority = "low";
       image.src = testimonialImages[next];
-    }, 1400);
+    }, 350);
 
     return () => window.clearTimeout(timer);
   }, [activeTestimonial, testimonialNearViewport]);
@@ -308,7 +366,7 @@ function SalesPage() {
       image.decoding = "async";
       image.fetchPriority = "low";
       image.src = productPages[next].image;
-    }, 1400);
+    }, 350);
 
     return () => window.clearTimeout(timer);
   }, [activeProductPage, productNearViewport]);
