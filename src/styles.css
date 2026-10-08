@@ -50,10 +50,31 @@ body {
 }
 
 .sales-topbar {
-  padding: 9px 12px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
   background: var(--olive-dark);
   color: var(--white);
-  text-align: center;
+}
+
+.sales-topbar-marquee {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  width: max-content;
+  white-space: nowrap;
+  animation: topbarMarquee 18s linear infinite;
+  will-change: transform;
+}
+
+.sales-topbar-marquee span {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding-right: 34px;
+  white-space: nowrap;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.05em;
@@ -168,6 +189,8 @@ body {
   width: min(100%, 430px);
   height: auto;
   filter: drop-shadow(0 16px 24px rgba(31, 38, 27, 0.1));
+  animation: mockupFloat 7s ease-in-out infinite;
+  will-change: transform;
 }
 
 .hero-sub {
@@ -204,13 +227,14 @@ body {
   transition:
     transform 0.18s ease,
     filter 0.18s ease;
+  animation: ctaPulse 4s ease-in-out infinite;
+  will-change: transform, filter, box-shadow;
 }
 
 .sales-btn-primary {
   background: var(--olive-dark);
   color: var(--white);
   box-shadow: 0 8px 20px rgba(69, 83, 53, 0.18);
-  animation: ctaPulse 3s ease-in-out infinite;
 }
 
 .sales-btn-secondary {
@@ -239,18 +263,39 @@ body {
   width: 100%;
 }
 
+@keyframes topbarMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 17px));
+  }
+}
+
+@keyframes mockupFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
 @keyframes ctaPulse {
   0%,
   100% {
-    box-shadow: 0 8px 20px rgba(69, 83, 53, 0.16);
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(69, 83, 53, 0.14);
     filter: brightness(1);
   }
 
   50% {
-    box-shadow:
-      0 10px 24px rgba(69, 83, 53, 0.23),
-      0 0 0 4px rgba(101, 117, 75, 0.06);
-    filter: brightness(1.035);
+    transform: scale(1.015);
+    box-shadow: 0 11px 24px rgba(69, 83, 53, 0.2);
+    filter: brightness(1.025);
   }
 }
 
@@ -1154,10 +1199,12 @@ body {
     scroll-behavior: auto;
   }
 
-  .sales-btn-primary,
+  .sales-topbar-marquee,
+  .hero-mockup-image,
+  .sales-btn,
   .product-page-slide,
   .testimonial-slide {
-    animation: none;
+    animation: none !important;
   }
 
   * {
