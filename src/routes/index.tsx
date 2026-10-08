@@ -25,6 +25,13 @@ export const Route = createFileRoute("/")({
           "120 receitas práticas sem açúcar adicionado, sem glúten e sem lactose, organizadas em um material digital fácil de consultar.",
       },
     ],
+    links: [
+      {
+        rel: "preload",
+        href: "/bd4ff994-4c15-4258-8d6f-933313446e5b.png",
+        as: "image",
+      },
+    ],
   }),
 });
 
@@ -153,7 +160,9 @@ function DynamicOfferDate() {
   const [today, setToday] = useState("");
 
   useEffect(() => {
-    const updateDate = () => {
+    let timer = 0;
+
+    const refresh = () => {
       setToday(
         new Intl.DateTimeFormat("pt-BR", {
           day: "2-digit",
@@ -161,11 +170,22 @@ function DynamicOfferDate() {
           year: "numeric",
         }).format(new Date()),
       );
+
+      const now = new Date();
+      const nextMidnight = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0,
+        0,
+        5,
+      );
+
+      timer = window.setTimeout(refresh, nextMidnight.getTime() - now.getTime());
     };
 
-    updateDate();
-    const interval = window.setInterval(updateDate, 60 * 1000);
-    return () => window.clearInterval(interval);
+    refresh();
+    return () => window.clearTimeout(timer);
   }, []);
 
   return (
@@ -175,17 +195,95 @@ function DynamicOfferDate() {
   );
 }
 
+function useAutoCarousel(length: number, delay: number) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    let interval = 0;
+
+    const stop = () => {
+      if (interval) {
+        window.clearInterval(interval);
+        interval = 0;
+      }
+    };
+
+    const start = () => {
+      stop();
+      if (!document.hidden) {
+        interval = window.setInterval(() => {
+          setIndex((current) => (current + 1) % length);
+        }, delay);
+      }
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) stop();
+      else start();
+    };
+
+    start();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+    };
+  }, [delay, length]);
+
+  return [index, setIndex] as const;
+}
+
 function SalesPage() {
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeProductPage, setActiveProductPage] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useAutoCarousel(
+    testimonialImages.length,
+    4600,
+  );
+  const [activeProductPage, setActiveProductPage] = useAutoCarousel(
+    productPages.length,
+    4200,
+  );
   const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
 
   useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
-    }, 4200);
+    if (expandedProductPage === null) return;
 
-    return () => window.clearInterval(interval);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpandedProductPage(null);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [expandedProductPage]);
+
+  const previousProductPage = () =>
+    setActiveProductPage((current) =>
+      current === 0 ? productPages.length - 1 : current - 1,
+    );
+
+  const nextProductPage = () =>
+    setActiveProductPage((current) => (current + 1) % productPages.length);
+
+  const previousTestimonial = () =>
+    setActiveTestimonial((current) =>
+      current === 0 ? testimonialImages.length - 1 : current - 1,
+    );
+
+  const nextTestimonial = () =>
+    setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
+
+  return () => window.clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -256,6 +354,10 @@ function SalesPage() {
               src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
               alt="Mockup do produto Receitas Sem Cara de Dieta"
               className="hero-mockup-image"
+              width={1114}
+              height={1402}
+              fetchPriority="high"
+              decoding="async"
             />
           </div>
 
@@ -314,32 +416,26 @@ function SalesPage() {
 
         <div className="product-pages-carousel" aria-roledescription="carrossel">
           <div className="product-pages-viewport">
-            <div
-              className="product-pages-track"
-              style={{ transform: `translateX(-${activeProductPage * 100}%)` }}
-            >
-              {productPages.map((page, index) => (
-                <article className="product-page-slide" key={page.image}>
-                  <button
-                    type="button"
-                    className="product-page-image-wrap"
-                    onClick={() => setExpandedProductPage(index)}
-                    aria-label={`Ampliar página: ${page.title}`}
-                  >
-                    <img
-                      src={page.image}
-                      alt={page.title}
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                    <span className="product-page-expand-hint">Toque para ampliar</span>
-                  </button>
-                  <div className="product-page-caption">
-                    <span>{page.label}</span>
-                    <strong>{page.title}</strong>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <article className="product-page-slide" key={productPages[activeProductPage].image}>
+              <button
+                type="button"
+                className="product-page-image-wrap"
+                onClick={() => setExpandedProductPage(activeProductPage)}
+                aria-label={`Ampliar página: ${productPages[activeProductPage].title}`}
+              >
+                <img
+                  src={productPages[activeProductPage].image}
+                  alt={productPages[activeProductPage].title}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="product-page-expand-hint">Toque para ampliar</span>
+              </button>
+              <div className="product-page-caption">
+                <span>{productPages[activeProductPage].label}</span>
+                <strong>{productPages[activeProductPage].title}</strong>
+              </div>
+            </article>
           </div>
 
           <button
@@ -573,19 +669,13 @@ function SalesPage() {
 
         <div className="testimonial-carousel" aria-roledescription="carrossel">
           <div className="testimonial-viewport">
-            <div
-              className="testimonial-track"
-              style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
-            >
-              {testimonialImages.map((image, index) => (
-                <div className="testimonial-slide" key={image}>
-                  <img
-                    src={image}
-                    alt={`Conversa ilustrativa ${index + 1}`}
-                    loading={index === 0 ? "eager" : "lazy"}
-                  />
-                </div>
-              ))}
+            <div className="testimonial-slide" key={testimonialImages[activeTestimonial]}>
+              <img
+                src={testimonialImages[activeTestimonial]}
+                alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
 
@@ -688,6 +778,7 @@ function SalesPage() {
                 alt="Mockup do produto Receitas Sem Cara de Dieta"
                 className="plan-mockup-image"
                 loading="lazy"
+              decoding="async"
               />
             </div>
 
@@ -802,6 +893,7 @@ function SalesPage() {
                 alt="Mockup do produto Receitas Sem Cara de Dieta"
                 className="final-mockup-image"
                 loading="lazy"
+              decoding="async"
               />
             </div>
           </div>
