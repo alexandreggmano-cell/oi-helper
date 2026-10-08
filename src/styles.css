@@ -215,10 +215,10 @@ body {
   isolation: isolate;
   overflow: hidden;
   width: 100%;
-  min-height: 52px;
+  min-height: 54px;
   border: 0;
   border-radius: 14px;
-  padding: 14px 16px;
+  padding: 15px 18px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -226,18 +226,35 @@ body {
   text-align: center;
   text-decoration: none;
   font-size: 12px;
-  font-weight: 850;
+  font-weight: 900;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition:
-    transform 0.18s ease,
-    filter 0.18s ease;
-  animation: ctaPulse 4.4s ease-in-out infinite;
+    transform 0.16s ease,
+    filter 0.16s ease,
+    box-shadow 0.16s ease;
+  animation: ctaPulse 2.8s ease-in-out infinite;
 }
 
 .sales-btn-primary {
-  background: var(--olive-dark);
+  background: linear-gradient(180deg, #556843 0%, #435333 100%);
   color: var(--white);
-  box-shadow: 0 8px 20px rgba(69, 83, 53, 0.18);
+  box-shadow:
+    0 10px 24px rgba(69, 83, 53, 0.24),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+.sales-btn-primary::after,
+.plan-card .sales-btn[href^="https://pay.wiapy.com"]::after,
+.final-actions .sales-btn[href^="https://pay.wiapy.com"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(101, 117, 75, 0.34);
+  animation: ctaRing 2.8s ease-out infinite;
+  pointer-events: none;
 }
 
 .sales-btn-secondary {
@@ -291,14 +308,29 @@ body {
   0%,
   100% {
     transform: scale(1);
-    box-shadow: 0 8px 20px rgba(69, 83, 53, 0.14);
     filter: brightness(1);
   }
 
   50% {
-    transform: scale(1.015);
-    box-shadow: 0 11px 24px rgba(69, 83, 53, 0.2);
-    filter: brightness(1.025);
+    transform: scale(1.026);
+    filter: brightness(1.055);
+  }
+}
+
+@keyframes ctaRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(101, 117, 75, 0.34);
+    opacity: 0.9;
+  }
+
+  70% {
+    box-shadow: 0 0 0 9px rgba(101, 117, 75, 0);
+    opacity: 0;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(101, 117, 75, 0);
+    opacity: 0;
   }
 }
 
@@ -1255,4 +1287,18 @@ body {
 .testimonial-slide img {
   user-select: none;
   -webkit-user-drag: none;
+}
+
+
+.sales-btn[href^="https://pay.wiapy.com"] {
+  animation: ctaPulse 2.8s ease-in-out infinite;
+}
+
+button.sales-btn:not(.sales-btn-primary),
+.product-preview-cta {
+  animation: none;
+}
+
+.sales-btn:active {
+  transform: scale(0.985);
 }
