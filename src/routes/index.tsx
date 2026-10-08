@@ -199,41 +199,20 @@ function useAutoCarousel(length: number, delay: number) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (
+      length < 2 ||
+      document.hidden ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       return;
     }
 
-    let interval = 0;
+    const timer = window.setTimeout(() => {
+      setIndex((current) => (current + 1) % length);
+    }, delay);
 
-    const stop = () => {
-      if (interval) {
-        window.clearInterval(interval);
-        interval = 0;
-      }
-    };
-
-    const start = () => {
-      stop();
-      if (!document.hidden) {
-        interval = window.setInterval(() => {
-          setIndex((current) => (current + 1) % length);
-        }, delay);
-      }
-    };
-
-    const onVisibilityChange = () => {
-      if (document.hidden) stop();
-      else start();
-    };
-
-    start();
-    document.addEventListener("visibilitychange", onVisibilityChange);
-
-    return () => {
-      stop();
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-    };
-  }, [delay, length]);
+    return () => window.clearTimeout(timer);
+  }, [delay, index, length]);
 
   return [index, setIndex] as const;
 }
@@ -248,6 +227,13 @@ function SalesPage() {
     4200,
   );
   const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
+
+  useEffect(() => {
+    const next = (activeTestimonial + 1) % testimonialImages.length;
+    const image = new window.Image();
+    image.src = testimonialImages[next];
+  }, [activeTestimonial]);
+
 
   useEffect(() => {
     if (expandedProductPage === null) return;
@@ -579,12 +565,12 @@ function SalesPage() {
         </div>
 
         <div className="testimonial-carousel" aria-roledescription="carrossel">
-          <div className="testimonial-viewport">
+          <div className="testimonial-viewport" aria-live="polite">
             <div className="testimonial-slide" key={testimonialImages[activeTestimonial]}>
               <img
                 src={testimonialImages[activeTestimonial]}
                 alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
-                loading="lazy"
+                loading="eager"
                 decoding="async"
               />
             </div>
