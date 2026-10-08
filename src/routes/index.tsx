@@ -700,7 +700,7 @@ function SalesPage() {
       <section className="sales-section social-proof">
         <div className="sales-heading">
           <span className="sales-tag">FEEDBACKS</span>
-          <h2>Veja algumas mensagens sobre o material</h2>
+          <h2>Veja Oque os nossos clientes está falando do produto ❤️❤️</h2>
         </div>
 
         <div
