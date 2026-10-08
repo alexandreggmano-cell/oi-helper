@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const CHECKOUT_ESSENCIAL = "#configurar-checkout-essencial";
+const CHECKOUT_ESSENCIAL = "https://pay.wiapy.com/vJERui3v7zg7";
 const CHECKOUT_COMPLETO = "https://pay.wiapy.com/K_QxyydjAwXz";
 
 const bonuses = [
