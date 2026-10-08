@@ -701,9 +701,6 @@ function SalesPage() {
         <div className="sales-heading">
           <span className="sales-tag">FEEDBACKS</span>
           <h2>Veja algumas mensagens sobre o material</h2>
-          <p>
-            Conversas ilustrativas apresentadas em formato de carrossel.
-          </p>
         </div>
 
         <div
