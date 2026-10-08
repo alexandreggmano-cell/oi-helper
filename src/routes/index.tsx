@@ -527,11 +527,6 @@ function SalesPage() {
                 alt={productPages[expandedProductPage].title}
                 decoding="async"
               />
-
-              <div className="product-page-lightbox-caption">
-                <span>{productPages[expandedProductPage].label}</span>
-                <strong>{productPages[expandedProductPage].title}</strong>
-              </div>
             </div>
           </div>
         )}
