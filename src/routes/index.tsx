@@ -466,46 +466,6 @@ function SalesPage() {
         )}
       </section>
 
-      <section className="inside-section">
-        <div className="inside-shell">
-          <div className="inside-copy">
-            <span className="sales-tag">VEJA ANTES DE ESCOLHER</span>
-            <h2>Veja o que você recebe por dentro</h2>
-            <p>Tudo organizado para você abrir, escolher uma receita e começar.</p>
-
-            <div className="inside-list">
-              {[
-                "Foto da receita",
-                "Nome e categoria",
-                "Ingredientes e quantidades",
-                "Tempo e porções",
-                "Modo de preparo",
-                "Substituição ou dica",
-              ].map((item) => (
-                <span key={item}>
-                  <Check size={17} />
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <button className="sales-btn sales-btn-secondary" onClick={goToPlans}>
-              QUERO TER ACESSO ÀS RECEITAS <ArrowRight size={18} />
-            </button>
-          </div>
-
-          <div className="inside-mockup-wrap">
-            <img
-              src="/bd4ff994-4c15-4258-8d6f-933313446e5b.png"
-              alt="Mockup do produto Receitas Sem Cara de Dieta"
-              className="inside-mockup-image"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-        </div>
-      </section>
-
       <section className="sales-section practical">
         <div className="sales-heading">
           <span className="sales-tag">ROTINA MAIS SIMPLES</span>
