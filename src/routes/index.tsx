@@ -283,57 +283,6 @@ function SalesPage() {
   const nextTestimonial = () =>
     setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
 
-  return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setActiveProductPage((current) => (current + 1) % productPages.length);
-    }, 3800);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (expandedProductPage === null) return;
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setExpandedProductPage(null);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [expandedProductPage]);
-
-  const previousProductPage = () => {
-    setActiveProductPage((current) =>
-      current === 0 ? productPages.length - 1 : current - 1,
-    );
-  };
-
-  const nextProductPage = () => {
-    setActiveProductPage((current) => (current + 1) % productPages.length);
-  };
-
-  const previousTestimonial = () => {
-    setActiveTestimonial((current) =>
-      current === 0 ? testimonialImages.length - 1 : current - 1,
-    );
-  };
-
-  const nextTestimonial = () => {
-    setActiveTestimonial((current) => (current + 1) % testimonialImages.length);
-  };
-
   return (
     <main className="sales-page">
       <DynamicOfferDate />
