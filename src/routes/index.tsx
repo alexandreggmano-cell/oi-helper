@@ -834,8 +834,7 @@ function SalesPage() {
               preparar.
             </h2>
             <p>
-              Escolha entre receber somente as 120 receitas ou liberar também o
-              pacote completo com todos os 6 bônus.
+              Leve as 120 receitas completas junto com todos os 6 bônus do pacote.
             </p>
 
             <div className="final-mockup-wrap">
@@ -850,9 +849,6 @@ function SalesPage() {
           </div>
 
           <div className="final-actions">
-            <a className="sales-btn sales-btn-outline light full" href={CHECKOUT_ESSENCIAL}>
-              QUERO AS 120 RECEITAS — R$9,90
-            </a>
             <a className="sales-btn sales-btn-light full" href={CHECKOUT_COMPLETO}>
               ⭐ QUERO 120 RECEITAS + 6 BÔNUS — R$19,90
             </a>
