@@ -454,6 +454,7 @@ function SalesPage() {
               <img
                 src={productPages[expandedProductPage].image}
                 alt={productPages[expandedProductPage].title}
+                decoding="async"
               />
 
               <div className="product-page-lightbox-caption">
@@ -499,6 +500,7 @@ function SalesPage() {
               alt="Mockup do produto Receitas Sem Cara de Dieta"
               className="inside-mockup-image"
               loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
@@ -671,7 +673,7 @@ function SalesPage() {
         </div>
 
         <div className="plan-grid">
-          <article className="plan-card plan-card-essential">
+          <article className="plan-card">
             <div className="plan-head">
               <small>PLANO ESSENCIAL</small>
               <h3>120 RECEITAS</h3>
@@ -825,7 +827,7 @@ function SalesPage() {
 
       <section className="sales-section final-cta">
         <div className="final-card">
-          <div className="final-copy">
+          <div >
             <span className="sales-tag light-tag">PRONTO PARA ESCOLHER?</span>
             <h2>
               120 receitas para você ter muito mais opções na hora de decidir o que
