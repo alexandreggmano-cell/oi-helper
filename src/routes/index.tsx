@@ -257,8 +257,8 @@ function shouldPrefetchHeavyImages() {
 }
 
 function SalesPage() {
-  const [productCarouselRef, productNearViewport] = useNearViewport("850px");
-  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("850px");
+  const [productCarouselRef, productNearViewport] = useNearViewport("320px");
+  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("420px");
 
   const [activeTestimonial, setActiveTestimonial] = useAutoCarousel(
     testimonialImages.length,
@@ -275,19 +275,29 @@ function SalesPage() {
   useEffect(() => {
     if (!testimonialNearViewport || !shouldPrefetchHeavyImages()) return;
 
-    const next = (activeTestimonial + 1) % testimonialImages.length;
-    const image = new window.Image();
-    image.decoding = "async";
-    image.src = testimonialImages[next];
+    const timer = window.setTimeout(() => {
+      const next = (activeTestimonial + 1) % testimonialImages.length;
+      const image = new window.Image();
+      image.decoding = "async";
+      image.fetchPriority = "low";
+      image.src = testimonialImages[next];
+    }, 1400);
+
+    return () => window.clearTimeout(timer);
   }, [activeTestimonial, testimonialNearViewport]);
 
   useEffect(() => {
     if (!productNearViewport || !shouldPrefetchHeavyImages()) return;
 
-    const next = (activeProductPage + 1) % productPages.length;
-    const image = new window.Image();
-    image.decoding = "async";
-    image.src = productPages[next].image;
+    const timer = window.setTimeout(() => {
+      const next = (activeProductPage + 1) % productPages.length;
+      const image = new window.Image();
+      image.decoding = "async";
+      image.fetchPriority = "low";
+      image.src = productPages[next].image;
+    }, 1400);
+
+    return () => window.clearTimeout(timer);
   }, [activeProductPage, productNearViewport]);
 
   useEffect(() => {
@@ -423,7 +433,6 @@ function SalesPage() {
                     alt={productPages[activeProductPage].title}
                     loading="eager"
                     decoding="async"
-                    fetchPriority="low"
                   />
                 ) : (
                   <span className="carousel-image-placeholder" aria-hidden="true" />
@@ -641,7 +650,6 @@ function SalesPage() {
                   alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
                   loading="eager"
                   decoding="async"
-                  fetchPriority="low"
                 />
               ) : (
                 <span className="carousel-image-placeholder" aria-hidden="true" />
