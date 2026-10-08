@@ -233,22 +233,13 @@ function useAutoCarousel(length: number, delay: number, enabled: boolean) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const connection = (
-      navigator as Navigator & {
-        connection?: { effectiveType?: string; saveData?: boolean };
-      }
-    ).connection;
-
-    const slowConnection =
-      connection?.saveData ||
-      connection?.effectiveType?.includes("2g") ||
-      connection?.effectiveType?.includes("3g");
+    const { lowEnd } = getDeviceProfile();
 
     if (
       !enabled ||
       length < 2 ||
       document.hidden ||
-      slowConnection ||
+      lowEnd ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
@@ -264,68 +255,35 @@ function useAutoCarousel(length: number, delay: number, enabled: boolean) {
   return [index, setIndex] as const;
 }
 
-function shouldPrefetchHeavyImages() {
-  const connection = (
-    navigator as Navigator & {
-      connection?: { effectiveType?: string; saveData?: boolean };
-    }
-  ).connection;
+function getDeviceProfile() {
+  const nav = navigator as Navigator & {
+    connection?: { effectiveType?: string; saveData?: boolean };
+    deviceMemory?: number;
+  };
 
-  if (connection?.saveData) return false;
+  const effectiveType = nav.connection?.effectiveType ?? "";
+  const slowConnection =
+    nav.connection?.saveData ||
+    effectiveType.includes("2g") ||
+    effectiveType.includes("3g");
 
-  const effectiveType = connection?.effectiveType ?? "";
-  return !effectiveType.includes("2g") && !effectiveType.includes("3g");
+  const lowMemory = typeof nav.deviceMemory === "number" && nav.deviceMemory <= 4;
+  const lowCpu =
+    typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency <= 4;
+
+  return {
+    slowConnection: Boolean(slowConnection),
+    lowEnd: Boolean(slowConnection || lowMemory || lowCpu),
+  };
 }
 
-function warmImageCache(urls: readonly string[]) {
-  let cancelled = false;
-  let index = 0;
-
-  const loadNext = () => {
-    if (cancelled || index >= urls.length) return;
-
-    const image = new window.Image();
-    image.decoding = "async";
-    image.fetchPriority = "low";
-    image.onload = () => {
-      index += 1;
-      window.setTimeout(loadNext, 250);
-    };
-    image.onerror = () => {
-      index += 1;
-      window.setTimeout(loadNext, 250);
-    };
-    image.src = urls[index];
-  };
-
-  const start = () => {
-    if (!cancelled) loadNext();
-  };
-
-  const win = window as Window & {
-    requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
-    cancelIdleCallback?: (id: number) => void;
-  };
-
-  let idleId: number | undefined;
-  let timeoutId: number | undefined;
-
-  if (win.requestIdleCallback) {
-    idleId = win.requestIdleCallback(start, { timeout: 1800 });
-  } else {
-    timeoutId = window.setTimeout(start, 1200);
-  }
-
-  return () => {
-    cancelled = true;
-    if (idleId !== undefined && win.cancelIdleCallback) win.cancelIdleCallback(idleId);
-    if (timeoutId !== undefined) window.clearTimeout(timeoutId);
-  };
+function shouldPrefetchHeavyImages() {
+  return !getDeviceProfile().lowEnd;
 }
 
 function SalesPage() {
-  const [productCarouselRef, productNearViewport] = useNearViewport("1200px");
-  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("1200px");
+  const [productCarouselRef, productNearViewport] = useNearViewport("650px");
+  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("650px");
 
   const [activeTestimonial, setActiveTestimonial] = useAutoCarousel(
     testimonialImages.length,
@@ -340,15 +298,10 @@ function SalesPage() {
   const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!shouldPrefetchHeavyImages()) return;
+    const { lowEnd } = getDeviceProfile();
+    document.documentElement.classList.toggle("low-end-device", lowEnd);
 
-    return warmImageCache([
-      productPages[0].image,
-      testimonialImages[0],
-      productPages[1].image,
-      testimonialImages[1],
-      testimonialImages[2],
-    ]);
+    return () => document.documentElement.classList.remove("low-end-device");
   }, []);
 
   useEffect(() => {
@@ -512,6 +465,7 @@ function SalesPage() {
                     alt={productPages[activeProductPage].title}
                     loading="eager"
                     decoding="async"
+                    fetchPriority="high"
                   />
                 ) : (
                   <span className="carousel-image-placeholder" aria-hidden="true" />
@@ -724,6 +678,7 @@ function SalesPage() {
                   alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
                   loading="eager"
                   decoding="async"
+                  fetchPriority="high"
                 />
               ) : (
                 <span className="carousel-image-placeholder" aria-hidden="true" />
