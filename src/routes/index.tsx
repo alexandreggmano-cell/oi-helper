@@ -705,7 +705,7 @@ function SalesPage() {
               </span>
             </div>
 
-            <a className="sales-btn sales-btn-outline full" href={CHECKOUT_ESSENCIAL}>
+            <a className="sales-btn sales-btn-primary full" href={CHECKOUT_ESSENCIAL}>
               QUERO SÓ AS 120 RECEITAS — R$9,90
             </a>
           </article>
