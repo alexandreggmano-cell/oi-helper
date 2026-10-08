@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
   ChevronLeft,
@@ -195,11 +195,37 @@ function DynamicOfferDate() {
   );
 }
 
-function useAutoCarousel(length: number, delay: number) {
+function useNearViewport(rootMargin = "700px") {
+  const ref = useRef<HTMLDivElement>(null);
+  const [nearViewport, setNearViewport] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || nearViewport) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [nearViewport, rootMargin]);
+
+  return [ref, nearViewport] as const;
+}
+
+function useAutoCarousel(length: number, delay: number, enabled: boolean) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (
+      !enabled ||
       length < 2 ||
       document.hidden ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -212,28 +238,57 @@ function useAutoCarousel(length: number, delay: number) {
     }, delay);
 
     return () => window.clearTimeout(timer);
-  }, [delay, index, length]);
+  }, [delay, enabled, index, length]);
 
   return [index, setIndex] as const;
 }
 
+function shouldPrefetchHeavyImages() {
+  const connection = (
+    navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    }
+  ).connection;
+
+  if (connection?.saveData) return false;
+
+  const effectiveType = connection?.effectiveType ?? "";
+  return !effectiveType.includes("2g") && !effectiveType.includes("3g");
+}
+
 function SalesPage() {
+  const [productCarouselRef, productNearViewport] = useNearViewport("850px");
+  const [testimonialCarouselRef, testimonialNearViewport] = useNearViewport("850px");
+
   const [activeTestimonial, setActiveTestimonial] = useAutoCarousel(
     testimonialImages.length,
-    4600,
+    5200,
+    testimonialNearViewport,
   );
   const [activeProductPage, setActiveProductPage] = useAutoCarousel(
     productPages.length,
-    4200,
+    4800,
+    productNearViewport,
   );
   const [expandedProductPage, setExpandedProductPage] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!testimonialNearViewport || !shouldPrefetchHeavyImages()) return;
+
     const next = (activeTestimonial + 1) % testimonialImages.length;
     const image = new window.Image();
+    image.decoding = "async";
     image.src = testimonialImages[next];
-  }, [activeTestimonial]);
+  }, [activeTestimonial, testimonialNearViewport]);
 
+  useEffect(() => {
+    if (!productNearViewport || !shouldPrefetchHeavyImages()) return;
+
+    const next = (activeProductPage + 1) % productPages.length;
+    const image = new window.Image();
+    image.decoding = "async";
+    image.src = productPages[next].image;
+  }, [activeProductPage, productNearViewport]);
 
   useEffect(() => {
     if (expandedProductPage === null) return;
@@ -349,7 +404,11 @@ function SalesPage() {
           </p>
         </div>
 
-        <div className="product-pages-carousel" aria-roledescription="carrossel">
+        <div
+          ref={productCarouselRef}
+          className="product-pages-carousel"
+          aria-roledescription="carrossel"
+        >
           <div className="product-pages-viewport">
             <article className="product-page-slide" key={productPages[activeProductPage].image}>
               <button
@@ -358,12 +417,17 @@ function SalesPage() {
                 onClick={() => setExpandedProductPage(activeProductPage)}
                 aria-label={`Ampliar página: ${productPages[activeProductPage].title}`}
               >
-                <img
-                  src={productPages[activeProductPage].image}
-                  alt={productPages[activeProductPage].title}
-                  loading="lazy"
-                  decoding="async"
-                />
+                {productNearViewport ? (
+                  <img
+                    src={productPages[activeProductPage].image}
+                    alt={productPages[activeProductPage].title}
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="low"
+                  />
+                ) : (
+                  <span className="carousel-image-placeholder" aria-hidden="true" />
+                )}
                 <span className="product-page-expand-hint">Toque para ampliar</span>
               </button>
               <div className="product-page-caption">
@@ -564,15 +628,24 @@ function SalesPage() {
           </p>
         </div>
 
-        <div className="testimonial-carousel" aria-roledescription="carrossel">
+        <div
+          ref={testimonialCarouselRef}
+          className="testimonial-carousel"
+          aria-roledescription="carrossel"
+        >
           <div className="testimonial-viewport" aria-live="polite">
             <div className="testimonial-slide" key={testimonialImages[activeTestimonial]}>
-              <img
-                src={testimonialImages[activeTestimonial]}
-                alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
-                loading="eager"
-                decoding="async"
-              />
+              {testimonialNearViewport ? (
+                <img
+                  src={testimonialImages[activeTestimonial]}
+                  alt={`Conversa ilustrativa ${activeTestimonial + 1}`}
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="low"
+                />
+              ) : (
+                <span className="carousel-image-placeholder" aria-hidden="true" />
+              )}
             </div>
           </div>
 
