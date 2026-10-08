@@ -190,8 +190,16 @@ function DynamicOfferDate() {
   }, []);
 
   return (
-    <div className="sales-topbar">
-      🍰 OFERTA DISPONÍVEL HOJE{today ? ` • ${today}` : ""}
+    <div
+      className="sales-topbar"
+      aria-label={`Oferta disponível apenas hoje ${today}`}
+    >
+      <div className="sales-topbar-marquee">
+        <span>🍰 OFERTA DISPONÍVEL APENAS HOJE • {today || "--/--/----"} •</span>
+        <span aria-hidden="true">
+          🍰 OFERTA DISPONÍVEL APENAS HOJE • {today || "--/--/----"} •
+        </span>
+      </div>
     </div>
   );
 }
