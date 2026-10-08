@@ -224,10 +224,22 @@ function useAutoCarousel(length: number, delay: number, enabled: boolean) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    const connection = (
+      navigator as Navigator & {
+        connection?: { effectiveType?: string; saveData?: boolean };
+      }
+    ).connection;
+
+    const slowConnection =
+      connection?.saveData ||
+      connection?.effectiveType?.includes("2g") ||
+      connection?.effectiveType?.includes("3g");
+
     if (
       !enabled ||
       length < 2 ||
       document.hidden ||
+      slowConnection ||
       window.matchMedia("(prefers-reduced-motion: reduce)").matches
     ) {
       return;
