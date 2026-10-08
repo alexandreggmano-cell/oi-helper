@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowRight,
   ChevronLeft,
@@ -501,17 +502,15 @@ function SalesPage() {
           QUERO VER AS OPÇÕES <ArrowRight size={18} />
         </button>
 
-        {expandedProductPage !== null && (
-          <div
-            className="product-page-lightbox"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Página ampliada do produto"
-            onClick={() => setExpandedProductPage(null)}
-          >
+        {expandedProductPage !== null &&
+          typeof document !== "undefined" &&
+          createPortal(
             <div
-              className="product-page-lightbox-content"
-              onClick={(event) => event.stopPropagation()}
+              className="product-page-lightbox"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Página ampliada do produto"
+              onClick={() => setExpandedProductPage(null)}
             >
               <button
                 type="button"
@@ -522,14 +521,19 @@ function SalesPage() {
                 <X size={22} />
               </button>
 
-              <img
-                src={productPages[expandedProductPage].image}
-                alt={productPages[expandedProductPage].title}
-                decoding="async"
-              />
-            </div>
-          </div>
-        )}
+              <div
+                className="product-page-lightbox-content"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <img
+                  src={productPages[expandedProductPage].image}
+                  alt={productPages[expandedProductPage].title}
+                  decoding="async"
+                />
+              </div>
+            </div>,
+            document.body,
+          )}
       </section>
 
       <section className="sales-section practical">
