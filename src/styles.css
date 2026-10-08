@@ -9,7 +9,7 @@
   --line: #e4ded2;
   --white: #fff;
   --radius: 18px;
-  --shadow: 0 12px 30px rgba(35, 45, 31, 0.08);
+  --shadow: 0 8px 20px rgba(35, 45, 31, 0.06);
 }
 
 * {
@@ -47,6 +47,10 @@ body {
 .sales-page img {
   display: block;
   max-width: 100%;
+}
+
+.sales-page img {
+  content-visibility: auto;
 }
 
 .sales-topbar {
@@ -188,7 +192,7 @@ body {
 .hero-mockup-image {
   width: min(100%, 430px);
   height: auto;
-  filter: drop-shadow(0 16px 24px rgba(31, 38, 27, 0.1));
+  filter: drop-shadow(0 12px 18px rgba(31, 38, 27, 0.08));
   animation: mockupFloat 7s ease-in-out infinite;
   will-change: transform;
 }
@@ -227,8 +231,7 @@ body {
   transition:
     transform 0.18s ease,
     filter 0.18s ease;
-  animation: ctaPulse 4s ease-in-out infinite;
-  will-change: transform, filter, box-shadow;
+  animation: ctaPulse 4.4s ease-in-out infinite;
 }
 
 .sales-btn-primary {
@@ -366,6 +369,14 @@ body {
   border-radius: 18px;
   background: var(--white);
   box-shadow: var(--shadow);
+}
+
+.product-pages-viewport,
+.testimonial-viewport,
+.plan-card,
+.bonus-card,
+.practical-card {
+  contain: layout paint;
 }
 
 .testimonial-viewport {
@@ -1043,6 +1054,10 @@ body {
 }
 
 @media (min-width: 768px) {
+  .hero-mockup-image {
+    filter: drop-shadow(0 16px 24px rgba(31, 38, 27, 0.1));
+  }
+
   .sales-topbar {
     padding: 10px 16px;
     font-size: 11px;
@@ -1192,6 +1207,30 @@ body {
   .product-page-image-wrap:hover img {
     transform: scale(1.012);
   }
+}
+
+.low-end-device .sales-topbar-marquee,
+.low-end-device .hero-mockup-image,
+.low-end-device .sales-btn,
+.low-end-device .product-page-slide,
+.low-end-device .testimonial-slide {
+  animation: none !important;
+}
+
+.low-end-device .hero-mockup-image,
+.low-end-device .plan-mockup-image,
+.low-end-device .final-mockup-image {
+  filter: none;
+}
+
+.low-end-device .product-pages-viewport,
+.low-end-device .testimonial-viewport,
+.low-end-device .plan-card.featured {
+  box-shadow: none;
+}
+
+.low-end-device .sales-btn {
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
